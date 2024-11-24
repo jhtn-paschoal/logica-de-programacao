@@ -1,4 +1,4 @@
-package ContadorDeVogais;
+package contadorDeVogais;
 
 import java.util.Scanner;
 
