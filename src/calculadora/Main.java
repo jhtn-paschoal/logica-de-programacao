@@ -12,11 +12,9 @@ public class Main {
 
         //Loop para inserir novos valores
         while (repetir) {
-            
-            System.out.print("Digite o 1° número: ");
-            double numero1 = sc.nextDouble();
-            System.out.print("Digite o 2° número: ");
-            double numero2 = sc.nextDouble();
+            //Chamada do método getValidDouble
+            double numero1 = getValidDouble(sc, "Digite o 1° número: ");
+            double numero2 = getValidDouble(sc, "Digite o 2° número: ");
             
             //Escolha de operação para ser realizada
             System.out.println("Escolha a operação:");
@@ -58,7 +56,7 @@ public class Main {
         return escolha;
     }
 
-    //Método realizar calculo escolhido
+    //Método para fazer a operação escolhida
     private static double calcular(double numero1, double numero2, int escolha) {
         switch (escolha) {
             case 1:
@@ -76,5 +74,21 @@ public class Main {
             default:
                 throw new IllegalArgumentException("Operação inválida");
         }
+    }
+
+    //Método para não aceitar letras como dados de entrada
+    private static double getValidDouble(Scanner scanner, String mensagem){
+        double numero;
+        while (true) {
+            System.out.print(mensagem);
+            if(scanner.hasNextDouble()) {
+                numero = scanner.nextDouble();
+                break;
+            } else {
+                System.out.println("Valor inválido, digite outro número.");
+                scanner.next();
+            }
+        }
+        return numero;
     }
 }

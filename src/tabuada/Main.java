@@ -13,14 +13,32 @@ public class Main {
         
         //Loop para repetir execução
         while (continuar) {    
-            System.out.print("Digite um número inteiro para calcularmos a tabuada: ");
-            int numero = sc.nextInt();
+            int numero = 0;
+            boolean validarNumero = false;
             
-            //Chamada do método para exibir a tabuada escolhida pelo usuário
-            exibirTabuada(numero);
-
-            System.out.print("Deseja inserir um novo valor? (s/n): ");
-            sc.nextLine();
+            //Loop para receber apenas valores válidos
+            while (!validarNumero) {
+                //Tratamento de valores double
+                try {    
+                    System.out.print("Digite um número inteiro para calcularmos a tabuada: ");
+                    numero = sc.nextInt();
+                    
+                    //Verifica se o número inserido é maior ou igual a 0 
+                    if(numero <= 0) {
+                        System.out.println("Número inválido! O número digitado não pode ser negativo, tente outro.");
+                    } else {
+                        validarNumero = true;
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Número inválido! Números com decimais não são aceitos, apenas números inteiros, tente outro.");
+                    sc.nextLine();
+                }
+            }
+                //Chamada do método para exibir a tabuada escolhida pelo usuário
+                exibirTabuada(numero);
+                
+                System.out.print("Deseja inserir um novo valor? (s/n): ");
+                sc.nextLine();
             String repetir = sc.nextLine().trim().toLowerCase();
 
             if(!repetir.equals("s")){
