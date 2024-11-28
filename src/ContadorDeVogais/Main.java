@@ -42,6 +42,7 @@ public class Main {
         }
 
         System.out.println("Fim da execução.");
+        sc.close();
     }
 
     private static int contadorDeVogais(String palavra) {
