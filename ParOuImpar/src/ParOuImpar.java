@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ParOuImpar {
@@ -10,7 +11,14 @@ public class ParOuImpar {
 
         while(true){
             System.out.print("Digite um número: ");
-            number = sc.nextInt();
+            
+            try {    
+                number = sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.err.println("Entrada inválida! Digite apenas números inteiros.");
+                sc.nextLine(); //Limpa o buffer de entrada
+                continue; //Retorna ao início do loop
+            }
             
             if(number == 0) {
                 System.out.println("Programa encerrado.");
@@ -22,6 +30,8 @@ public class ParOuImpar {
             } else {
                 System.out.println("O número digitado é ímpar.");
             }
+
+            System.out.println("-----------------------------------");
         }
             
         sc.close();
