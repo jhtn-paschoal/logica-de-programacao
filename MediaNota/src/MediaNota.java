@@ -4,65 +4,64 @@ public class MediaNota {
     public static void main(String[] args) throws Exception {
         
         Scanner sc = new Scanner(System.in);
-
-        double n1 = 0.;
-        double n2 = 0.;
-        double n3 = 0.;
-        double media = 0.;
         boolean repetir = true;
 
         System.out.println("Média do Aluno");
 
         while (repetir) {
-            System.out.println("Digite as 3 notas do aluno abaixo:");
+            double[] notas = new double[3]; //Array para armazenar as 3 notas
+
+            System.out.println("\nDigite as 3 notas do aluno:");
+
+            //Loop para capturar e validar as notas
+            for(int i = 0; i < 3; i++) {
+                notas[i] = lerNota(sc,i + 1);
+            }
+
+            //Cálculo da média
+            double media = (notas[0] + notas[1] + notas[2]) / 3;
+
+            //Exibição dos resultados
+            System.out.printf("Média do aluno: %.2f%n", media);
+            exibirSituacao(media);
             
-            System.out.print("Nota 1: ");
-            n1 = sc.nextDouble();
-            while (n1 > 10 || n1 < 0) {
-                System.out.println("O valor digitado é inválido, digite novamente.");
-                System.out.print("Nota 1: ");
-                n1 = sc.nextDouble();
-            }
-            
-            System.out.print("Nota 2: ");
-            n2 = sc.nextDouble();
-            while (n2 > 10 || n2 < 0) {
-                System.out.println("O valor digitado é inválido, digite novamente.");
-                System.out.print("Nota 2: ");
-                n2 = sc.nextDouble();
-            }
-
-
-            System.out.print("Nota 3: ");
-            n3 = sc.nextDouble();
-            while (n3 > 10 || n3 < 0) {
-                System.out.println("O valor digitado é inválido, digite novamente.");
-                System.out.print("Nota 3: ");
-                n3 = sc.nextDouble();
-            }
-
-            media = (n1 + n2 + n3) / 3;
-
-            System.out.printf("Média do aluno: %.2f%n",  media);
-
-            if(media >= 7.0){
-                System.out.println("Aprovado");
-            } else if(media >= 5.0) {
-                System.out.println("Recuperação");
-            } else {
-                System.out.println("Reprovado");
-            }
-
+            //Consumir ENTER do nextdouble()
             sc.nextLine();
 
-            System.out.println("Deseja inserir a nota de outro aluno? (S/N)");
-            String resposta = sc.nextLine().trim().toLowerCase();
-            if(!resposta.equals("s")) {
-                repetir = false;
-            } else {
-                repetir = true;
-            }
+            //Inserir novas notas
+            System.out.println("\nDeseja inserir a nota de outro aluno? (S/N)");
+            repetir = sc.nextLine().trim().equalsIgnoreCase("s");
         }
 
+        sc.close();
+    }
+
+    //Método para ler notas do aluno e validação dos dados
+    private static double lerNota(Scanner sc, int numeroNota) {
+        double nota;
+        while (true) {
+            System.out.println("Nota " + numeroNota + ": ");
+            if (sc.hasNextDouble()) {
+                nota = sc.nextDouble();
+                if (nota >= 0 && nota <= 10) {
+                    return nota;
+                }
+                System.out.println("O valor digitado é inválido, digite novamente.");
+            } else {
+                System.out.println("Entrada inválida! Digite um número entre 0 e 10.");
+                sc.next(); //Descarta a entrada inválida
+            }
+        }
+    }
+
+    //Método para exibir status do aluno
+    private static void exibirSituacao(double media) {
+        if(media >= 7.0) {
+            System.out.println("Aprovado");
+        } else if(media >= 5.0) {
+            System.out.println("Recuperação");
+        } else {
+            System.out.println("Reprovado");
+        }
     }
 }
